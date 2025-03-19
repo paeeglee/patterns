@@ -1,10 +1,13 @@
 import Boleto from "./Boleto";
-import Boleto10Dias from "./Boleto10Dias";
-import Boleto30Dias from "./Boleto30Dias";
-import Boleto60Dias from "./Boleto60Dias";
 
-export default class Banco {
+export default abstract class Banco {
     gerarBoleto(vencimento: number, valor: number): Boleto {
+        return this.criarBoleto(vencimento, valor);
+    }
+
+    protected abstract criarBoleto(vencimento: number, valor: number): Boleto;
+    
+    /*gerarBoleto(vencimento: number, valor: number): Boleto {
         let boleto: Boleto;
 
         switch(vencimento) {
@@ -29,5 +32,5 @@ export default class Banco {
         console.log("----------------------------------------")
 
         return boleto;
-    }
+    }*/
 }
