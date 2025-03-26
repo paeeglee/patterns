@@ -1,29 +1,33 @@
 import { AndroidButton, iOSButton } from "./components/button";
 import { AndroidTextBox, iOSTextBox } from "./components/textbox";
+import { AndroidGUIFactory, GUIFactory, IosGUIFactory } from "./GUIFactory";
 
 class Application {
-  private button: any;
-  private textBox: any;
+  private factory: GUIFactory;
 
-  constructor(os: string) {
-    if (os === "Android") {
-      this.button = new AndroidButton();
-      this.textBox = new AndroidTextBox();
-    } else if (os === "iOS") {
-      this.button = new iOSButton();
-      this.textBox = new iOSTextBox();
-    } else {
-      throw new Error("Sistema operacional não suportado!");
-    }
+  constructor(factory: GUIFactory) {
+    this.factory = factory;
   }
 
   renderUI(): void {
-    this.button.render();
-    this.textBox.render();
+    this.factory.criarButton().render();
+    this.factory.criarTextBox().render();
   }
 }
 
-const userOS = "iOS";
-const app = new Application(userOS);
+function getOs(): GUIFactory {
+  const os = process.env.OS;
+  if (os === "Android") {
+    return new AndroidGUIFactory();
+  }
+
+  if (os === "iOS") {
+    return new IosGUIFactory();
+  }
+
+  throw new Error("OS não suportado")
+}
+
+const app = new Application(getOs());
 
 app.renderUI();
