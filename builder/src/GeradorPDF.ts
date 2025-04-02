@@ -3,48 +3,16 @@ export default class GeradorPDF {
   private unit: string = "mm";
   private pageSizeX: number = 210;
   private pageSizeY: number = 297;
-  private marginTop: number = 30;
-  private marginRight: number = 20;
-  private marginBottom: number = 30;
-  private marginLeft: number = 20;
-  private hasHeader: boolean = false;
-  private headerHight: number = 0;
-  private hasFooter: boolean = false;
-  private footerHight: number = 0;
+  private marginTop: number = 0;
+  private marginRight: number = 0;
+  private marginBottom: number = 0;
+  private marginLeft: number = 0;
+  private hasHeader: boolean = true;
+  private headerHight: number = 15;
+  private hasFooter: boolean = true;
+  private footerHight: number = 15;
   private pageColor: string = "#ffffff";
   private encode: string = "UTF-8";
-
-  constructor(
-    pageOrientation: string,
-    unit: string,
-    pageSizeX: number,
-    pageSizeY: number,
-    marginTop: number,
-    marginRight: number,
-    marginBottom: number,
-    marginLeft: number,
-    hasHeader: boolean,
-    headerHight: number,
-    hasFooter: boolean,
-    footerHight: number,
-    pageColor: string,
-    encode: string
-  ) {
-    this.pageOrientation = pageOrientation;
-    this.unit = unit;
-    this.pageSizeX = pageSizeX;
-    this.pageSizeY = pageSizeY;
-    this.marginTop = marginTop;
-    this.marginRight = marginRight;
-    this.marginBottom = marginBottom;
-    this.marginLeft = marginLeft;
-    this.hasHeader = hasHeader;
-    this.headerHight = headerHight;
-    this.hasFooter = hasFooter;
-    this.footerHight = footerHight;
-    this.pageColor = pageColor;
-    this.encode = encode;
-  }
 
   setPageOrientation(value: string) {
     this.pageOrientation = value;
