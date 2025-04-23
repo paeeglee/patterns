@@ -1,25 +1,28 @@
+import { CanalEnvio } from "./CanalEnvio";
+import { Email } from "./Email";
 import { Mensagem } from "./Mensagem";
-import { MensagemAdminEmail } from "./MensagemAdminEmail";
-import { MensagemAdminSMS } from "./MensagemAdminSMS";
-import { MensagemUsuarioEmail } from "./MensagemUsuarioEmail";
-import { MensagemUsuarioSMS } from "./MensagemUsuarioSMS";
+import { MensagemAdmin } from "./MensagemAdmin";
+import { MensagemUsuario } from "./MensagemUsuario";
+import { SMS } from "./SMS";
 
-let mensagem: Mensagem = new MensagemAdminEmail();
+let canal: CanalEnvio = new Email();
+let mensagem: Mensagem = new MensagemAdmin(canal);
 mensagem.setAssunto("Primeira mensagem");
 mensagem.setMensagem("Hello Admin!");
 mensagem.enviar();
 
-mensagem = new MensagemAdminSMS();
-mensagem.setAssunto("Primeira mensagem");
-mensagem.setMensagem("Hello Admin!");
-mensagem.enviar();
-
-mensagem = new MensagemUsuarioEmail();
+mensagem = new MensagemUsuario(canal);
 mensagem.setAssunto("Segunda mensagem");
 mensagem.setMensagem("Hello Admin!");
 mensagem.enviar();
 
-mensagem = new MensagemUsuarioSMS();
+canal = new SMS();
+mensagem = new MensagemAdmin(canal);
+mensagem.setAssunto("Primeira mensagem");
+mensagem.setMensagem("Hello Admin!");
+mensagem.enviar();
+
+mensagem = new MensagemUsuario(canal);
 mensagem.setAssunto("Segunda mensagem");
 mensagem.setMensagem("Hello Admin!");
 mensagem.enviar();
