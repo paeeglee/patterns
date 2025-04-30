@@ -1,42 +1,30 @@
-import { Arquivo } from "./Arquivo";
+import { Component } from "./Component";
 
-export class Pasta {
-    public name: string;
-    public caminho: string;
-    public componentes: Arquivo[];
+export class Pasta extends Component {
+    protected componentes: Component[];
 
     constructor(name: string, caminho: string) {
-        this.name = name;
-        this.caminho = caminho;
+        super(name, caminho);
         this.componentes = [];
     }
 
-    public adicionar(componente: Arquivo) {
+    public adicionar(componente: Component) {
         this.componentes.push(componente);
     }
 
-    public remover(componente: Arquivo) {
+    public remover(componente: Component) {
         this.componentes = this.componentes.filter(c => c !== componente);
     }
 
-    public recuperarFilhos(indice: number) {
-        return this.componentes[indice];
+    public recuperarFilhos(i: number) {
+        return this.componentes[i];
     }
 
-    public getNome(): string {
-        return this.name;
-    }
-
-    public getCaminho(): string {
-        return this.caminho;
-    }
-    
     public exibir(spacer: string = ""): void {
-        console.log(`${spacer}${this.name} - [${this.caminho}]`);
+        console.log(`${spacer}${this.nome} - [${this.caminho}]`);
 
         this.componentes.forEach(componente => {
-            componente.exibir("  ");
+            componente.exibir(spacer + "  ");
         });
     }
-    
 }

@@ -1,21 +1,7 @@
-export class Arquivo {
-    public name: string;
-    public caminho: string;
+import { Component } from "./Component";
 
-    constructor(name: string, caminho: string) {
-        this.name = name;
-        this.caminho = caminho;
-    }
-
-    public getNome(): string {
-        return this.name;
-    }
-
-    public getCaminho(): string {
-        return this.caminho;
-    }
-
+export class Arquivo extends Component {
     public exibir(spacer: string = ""): void {
-        console.log(`${spacer}${this.name} - [${this.caminho}]`);
+        console.log(`${spacer}${this.nome} - [${this.caminho}]`);
     }
 }   
