@@ -1,40 +1,39 @@
-export enum PedidoEstado {
-  AGUARDANDO_PAGAMENTO = 1,
-  PAGO,
-  CANCELADO,
-  ENVIADO
-}
+import { AguardandoPagamentoState } from "./AguardandoPagamentoState";
+import { CanceladoState } from "./CanceladoState";
+import { EnviadoState } from "./EnviadoState";
+import { PagoState } from "./PagoState";
+import { State } from "./State";
 
 export class Pedido {
-  private estado: PedidoEstado;
+  public aguardandoPagamento: State;
+  public pago: State;
+  public cancelado: State;
+  public enviado: State;
+
+  private estado: State;
 
   constructor() {
-    this.estado = PedidoEstado.AGUARDANDO_PAGAMENTO;
+    this.aguardandoPagamento = new AguardandoPagamentoState(this);
+    this.pago = new PagoState(this);
+    this.cancelado = new CanceladoState(this);
+    this.enviado = new EnviadoState(this);
+
+    this.estado = this.aguardandoPagamento;
   }
 
-  pagar() {
-    if (this.estado !== PedidoEstado.AGUARDANDO_PAGAMENTO) {
-      throw new Error("O pedido não está aguardando pagamento");
-    }
-
-    this.estado = PedidoEstado.PAGO;
+  setEstadoAtual(s: State): void {
+    this.estado = s;
   }
 
-  cancelar() {
-    if (this.estado === PedidoEstado.AGUARDANDO_PAGAMENTO) {
-      this.estado = PedidoEstado.CANCELADO;
-    } else if (this.estado === PedidoEstado.PAGO) {
-      this.estado = PedidoEstado.CANCELADO;
-    } else {
-      throw new Error("O pedido não pode ser cancelado");
-    }
+  realizarPagamento() {
+    this.estado.pagar();
   }
 
-  despachar() {
-    if (this.estado !== PedidoEstado.PAGO) {
-      throw new Error("O pedido não pode ser despachado");
-    }
+  cancelarPedido() {
+    this.estado.cancelar();
+  }
 
-    this.estado = PedidoEstado.ENVIADO;
+  despacharPedido() {
+    this.estado.despachar();
   }
 }
